@@ -10,14 +10,18 @@
 import { mapState } from "vuex";
 export default {
   name: "Formsort",
-  props: {
-    inputData: String
+  data: function () {
+			return {
+			search:"",
+			inputData: String
+		}
 	},
 	methods : {
 		searchForm: function(e){
 			e.preventDefault();
+			let src = this.search;
 			console.log(this.search);
-			this.$store.commit('searchPoke', this.search);
+			this.$store.commit('searchPoke', src);
 		}
 	},
 };

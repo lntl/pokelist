@@ -144,13 +144,13 @@ input {
 }
 
 .fade-enter-active, .fade-leave-active {
-	transition: opacity .5s;
+	transition: opacity .2s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter, .fade-leave-to{
 	opacity: 0;
 }
 .list-complete-item {
-  transition: all 1s;
+  transition: all 0.5s;
   display: inline-block;
   margin-right: 10px;
 }
@@ -166,4 +166,44 @@ input {
 }
 .list-complete-leave-active {
   position: absolute;
+}
+
+
+/*FILTERS*/
+#filters {
+	border-top: 1px solid rgba(000,000,000,0.2);
+	border-bottom: 1px solid rgba(000,000,000,0.2);
+	margin: 0px 0 30px 0;
+	padding-bottom: 15px;
+}
+.container-field {
+	position: relative;
+	width: 100px;
+	padding: 5px 35px;
+	border: 1px solid #35495e;
+	margin-left: 5px;
+	border-radius: 3px;
+	transition: 0.2s;
+}
+.container-field:hover, .container-field.active{
+	color: #fff;
+	background:#35495e;
+}
+#filters .title {
+	font-size: 1.2rem;
+	margin-bottom: 15px;
+	margin-top: 5px;
+}
+.container-field input {
+	position: absolute;
+	z-index: 10;
+	opacity: 0;
+	cursor: pointer;
+	left: 0;
+	top: 0;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	min-width: auto;
+	height: 30px;
 }

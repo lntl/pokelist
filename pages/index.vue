@@ -3,6 +3,7 @@
       <Logo />
       <h1 class="title">PokeGroover</h1>
       <Formsort />
+      <Filters />
       <div class="content">
         <Pokecard />
       </div>
@@ -21,7 +22,7 @@ export default {
   methods : {
 	},
 	mounted: function(){
-    //this.$store.dispatch('getPoke');
+    this.$store.dispatch('getPoke');
   }
 }
 </script>
