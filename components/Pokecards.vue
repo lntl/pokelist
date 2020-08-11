@@ -5,13 +5,13 @@
       <li class="card list-complete-item" 
           v-for="poke in pokemons" 
           v-bind:key="poke.name"
-          @:click="selectCads(poke.id, poke.name)" 
+          v-on:click="selectCads(poke.id)" 
       >
         <div class="thumb">
           <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.id}.png`" />
         </div>
         <p class="name">
-          <a :href=(poke.url)>{{ poke.name }}</a>
+          {{ poke.name.charAt(0).toUpperCase() + poke.name.slice(1) }}
         </p>
       </li>
     </transition-group>
@@ -21,20 +21,21 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  //middleware: 'pokemon',
-  data: function () {
+  data() {
     return {
-      active_elmt:0
+      ...this.$store.state
     }
-	},
+  },
+  name: "Pokecards",
   computed: {
     ...mapState({
       pokemons: state => state.pokemons_tab,
     })
   },
   methods : {
-	},
-	mounted: function(){
-  }
+    selectCads: function(id){
+      this.$emit('clicked', id);
+    }
+	}
 }
 </script>

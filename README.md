@@ -3,17 +3,10 @@
 ## Build Setup
 
 ```bash
-# install dependencies
-$ yarn install
+# installer les dependences avec son gestionaire de package (npm, yarn ...)
+$ yarn install  (ou) npm init
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+# run le serveur, disponible à l'adresse localhost:3000
+$ yarn run dev (ou) npm run dev
 
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
 

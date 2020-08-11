@@ -4,6 +4,7 @@ import axios from 'axios'
 Vue.use(Vuex)
 export const state = () => ({
     pokemons_tab:[],
+    pokemon:[],
     filters:[],
 });
 
@@ -22,6 +23,9 @@ export const mutations = {
         this.dispatch('getPoke');
       }
     },
+    setOnce(state,data){
+      state.pokemon = data;
+    },
     setFilters(state,data){
       let pokemons_tab = [...state.pokemons_tab];
       var newtab;
@@ -32,7 +36,7 @@ export const mutations = {
            if (a[key] < b[key]) return -1;
            return 0;
           }
-        } else {
+        } else if(order==="desc"){
           return function(a,b){
             if (a[key] > b[key]) return -1;
             if (a[key] < b[key]) return 1;
@@ -77,4 +81,18 @@ export const actions = {
       commit('setPoke', JSON.parse(localStorage.pokemons));
     };
   },
+  getOnce({commit},id){
+    let url = "https://pokeapi.co/api/v2/pokemon/"+id;
+    if(id){
+      axios.get(url).then(response => {
+          response.data.name = response.data.name.charAt(0).toUpperCase() + response.data.name.slice(1);
+          commit('setOnce', response.data);
+        }).catch(error => {
+          console.log(error);
+          this.errored = true;
+        })
+    } else {
+      commit('setOnce', "");
+    }
+  }
 }

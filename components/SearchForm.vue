@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <form id="formsort" >
-			<input type="text" v-model="search" @input="searchForm" @change="searchForm" placeholder="Chercher un pokemon"/>
+			<input class="input-search" type="text" v-model="search" @input="searchForm" @change="searchForm" placeholder="Chercher un pokemon"/>
 			<button class="search"></button>
 		</form>
   </div>
@@ -9,7 +9,7 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  name: "Formsort",
+  name: "SearchForm",
   data: function () {
 			return {
 			search:"",
@@ -20,7 +20,6 @@ export default {
 		searchForm: function(e){
 			e.preventDefault();
 			let src = this.search;
-			console.log(this.search);
 			this.$store.commit('searchPoke', src);
 		}
 	},
