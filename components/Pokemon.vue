@@ -35,11 +35,6 @@
 import { mapState } from "vuex";
 export default {
   name: "Pokemon",
-  data() {
-    return {
-      ...this.$store.state
-    }
-  },
   computed: {
     ...mapState({
       pokemon: state => state.pokemon,
