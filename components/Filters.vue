@@ -5,29 +5,29 @@
           <div class="title">Ordre alphabétique</div>
           <label @click="isActive = 1" :class="{active:isActive == 1}" class="container-field">
             ASC
-            <input type="radio" name="order_name" v-model="order" @change="handleFilter" :value="0"/>
+            <input type="radio" name="order_alpha" v-model="alpha" @change="handleFilter" :value="0"/>
             <span class="checkmark"></span>
           </label>
           <label @click="isActive = 2" :class="{active:isActive == 2}" class="container-field">
             DESQ
-            <input type="radio" name="order_name" v-model="order" @change="handleFilter" :value="1"/>
+            <input type="radio" name="order_alpha" v-model="alpha" @change="handleFilter" :value="1"/>
             <span class="checkmark"></span>
           </label>
         </div>
-        <!-- <div class="bar"></div>
+        <div class="bar"></div>
         <div class="order-name">
           <div class="title">Ordre numérique</div>
-          <label @click="isActivenum = 3" :class="{active:isActivenum == 3}" class="container-field">
+          <label @click="isActiveNum = 1" :class="{active:isActiveNum == 1}" class="container-field">
             ASC
-            <input type="radio" name="order_sort" v-model="sort" @change="handleFilter" :value="0"/>
+            <input type="radio" name="order_num" v-model="num" @change="handleFilter" :value="0"/>
             <span class="checkmark"></span>
           </label>
-          <label @click="isActivenum = 4" :class="{active:isActivenum == 4}" class="container-field">
+          <label @click="isActiveNum = 2" :class="{active:isActiveNum == 2}" class="container-field">
             DESQ
-            <input type="radio" name="order_sort" v-model="sort" @change="handleFilter" :value="1"/>
+            <input type="radio" name="order_num" v-model="num" @change="handleFilter" :value="1"/>
             <span class="checkmark"></span>
           </label>
-        </div> -->
+        </div>
       </div>
   </div>
 </template>
@@ -35,30 +35,29 @@
 import { mapState } from "vuex";
 export default {
   name: "Filters",
-  data: function () {
+  data() {
     return {
-      filter_type: {
-        id:String,
-        order_name:String,
-        order_sort:Array
-      },
-      order:undefined,
+      filter_type: [{
+        order_alpha:"",
+        order_num:"",
+      }],
+      num:undefined,
+      alpha:undefined,
       isActive: undefined,
+      isActiveNum:undefined
     }
 	},
 	methods : {
 		handleFilter: function(e){
       let field_name = e.target.name;
       this.$data.filter_type.target = field_name;
-      switch(e.target.name){
-        case "id":
-          this.$data.filter_type.id  = e.target.value;
+      this.$data.filter_type.order_by = e.target.value;
+      switch(field_name){
+        case "order_alpha":
+          this.$data.filter_type.order_alpha = this.alpha;
         break;
-        case "order_name":
-          this.$data.filter_type.order_name = e.target.value;
-        break;
-        case "order_sort":
-          this.$data.filter_type.order_sort  = e.target.value;
+        case "order_num":
+          this.$data.filter_type.order_num  = this.num;
         break;
       }
       this.$store.commit('setFilters', this.$data.filter_type);

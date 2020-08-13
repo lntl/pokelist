@@ -4,7 +4,7 @@
         <div id="logo">
           <img src="../assets/logo.svg"/>
         </div>
-        <h1 class="title">PokeGroover</h1>
+        <h1 class="title">PokeGroover<span class="sub-title">search them all</span></h1>
         <SearchForm />
         <Filters />
       </div>
@@ -28,23 +28,28 @@ export default {
       scrolled:false,
     }
   },
-  created () {
+  created() {
     window.addEventListener('scroll', this.handleScroll);
   },
-  destroyed () {
+  destroyed() {
     window.removeEventListener('scroll', this.handleScroll);
   },
-  computed: {
+  computed : {
      ...mapState({
       pokemons: state => state.pokemons_tab,
     })
   },
   methods : {
     toggleModal(id){
-      this.$store.dispatch('getOnce', id);
-      this.modalDisplay =! this.modalDisplay;
+      if(id){
+        this.$store.dispatch('getOnce', id).then(()=>{
+          this.modalDisplay =! this.modalDisplay;
+        });
+      } else {
+        this.modalDisplay = false
+      }
     },
-    handleScroll (event) {
+    handleScroll(event) {
       if(event.target.scrollingElement.scrollTop>40){
         this.scrolled = true;
       } else {
@@ -52,7 +57,7 @@ export default {
       }
     }
 	},
-	mounted: function(){
+	mounted(){
     this.$store.dispatch('getPoke');
   }
 }

@@ -1,19 +1,8 @@
-import Vuex from 'vuex'
-import Vue from 'vue'
-import {mount, createLocalVue} from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
+import VueRouter from 'vue-router'
+import Pokemon from '../components/Pokemon.vue'
 
-import Pokecards from '../components/Pokecards'
-import PokeStore from '../store/index'
+const localVue = createLocalVue()
+localVue.use(VueRouter)
 
-const vueWithVuex = createLocalVue()
-vueWithVuex.use(Vuex);
-const store = new Vuex.Store(PokeStore);
-
-test('store load', ()=>{
-  const wrapper = mount(Pokecards, {
-    localVue:vueWithVuex,
-    store
-  })
-  console.log(wrapper.vm.getPoke());
-  //expect(wrapper.vm.getPoke())
-})
+//A FAIRE // TO DO

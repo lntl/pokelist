@@ -2,7 +2,7 @@
 <template>
   <div id="landing">
     <div class="thumb">
-      <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" />
+      <img v-if="pokemon.id!='undefined'" :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" />
     </div>
     <div id="pin">
       <div class="name">{{ pokemon.name }}</div>

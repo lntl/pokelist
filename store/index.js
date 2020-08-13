@@ -1,10 +1,11 @@
 import Vue from 'vue';
-import Vuex from 'vuex'
-import axios from 'axios'
-Vue.use(Vuex)
+import Vuex from 'vuex';
+import axios from 'axios';
+Vue.use(Vuex);
 export const state = () => ({
     pokemons_tab:[],
     pokemon:[],
+    last_filter:"",
     filters:[],
 });
 
@@ -28,38 +29,42 @@ export const mutations = {
     },
     setFilters(state,data){
       let pokemons_tab = [...state.pokemons_tab];
-      var newtab;
+      !state.last_filter ? state.last_filter=data.target : null;
+
       function sortByKey(key, order) {
         if(order==="asc"){
           return function(a,b){
+            if(key==='id'){a[key] = parseFloat(a[key]); b[key] = parseFloat(b[key]);}
            if (a[key] > b[key]) return 1;
            if (a[key] < b[key]) return -1;
            return 0;
           }
         } else if(order==="desc"){
           return function(a,b){
+            if(key==='id'){a[key] = parseFloat(a[key]); b[key] = parseFloat(b[key]);}
             if (a[key] > b[key]) return -1;
             if (a[key] < b[key]) return 1;
             return 0;
            }
         }
       }
-      //order_name 0=ASC 1=DESC
-      let tgt = "";
+      let order_by = (data.order_by=="0") ? 'asc' : 'desc';
+      let target="";
       switch(data.target) {
-        case "order_sort":
-          tgt="id"
+        case "order_alpha":
+          target = 'name';
         break;
-        case "order_name":
-          tgt="name"
+        case "order_num":
+          target = 'id';
         break;
       }
-      if(data.order_name==="0") {
-        newtab = pokemons_tab.sort(sortByKey(tgt, 'asc')) 
-      } else { 
-        newtab = pokemons_tab.sort(sortByKey(tgt,'desc'));
-      }
-      this.commit('setPoke', newtab);
+      pokemons_tab.sort(sortByKey(target, order_by));
+      
+      console.log("Last Target = "+state.last_filter+'  ||  '+"Current target = "+data.target);
+
+      this.commit('setPoke', pokemons_tab);
+
+      state.last_filter!=data.target ? state.last_filter=data.target : null;
     }
 }
 export const actions = {
@@ -83,16 +88,20 @@ export const actions = {
   },
   getOnce({commit},id){
     let url = "https://pokeapi.co/api/v2/pokemon/"+id;
-    if(id){
-      axios.get(url).then(response => {
-          response.data.name = response.data.name.charAt(0).toUpperCase() + response.data.name.slice(1);
-          commit('setOnce', response.data);
-        }).catch(error => {
-          console.log(error);
-          this.errored = true;
-        })
-    } else {
-      commit('setOnce', "");
-    }
+    return new Promise((resolve, reject) => {
+      if(id){
+        axios.get(url).then(response => {
+            response.data.name = response.data.name.charAt(0).toUpperCase() + response.data.name.slice(1);
+            commit('setOnce', response.data);
+            resolve(response);
+          }).catch(error => {
+            console.log(error);
+            this.errored = true;
+          })
+      } else {
+        commit('setOnce', "");
+        resolve('ok');
+      }
+    })
   }
 }

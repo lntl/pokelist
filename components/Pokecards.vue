@@ -33,7 +33,7 @@ export default {
     })
   },
   methods : {
-    selectCads: function(id){
+    selectCads(id){
       this.$emit('clicked', id);
     }
 	}

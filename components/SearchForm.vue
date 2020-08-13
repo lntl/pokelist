@@ -10,14 +10,14 @@
 import { mapState } from "vuex";
 export default {
   name: "SearchForm",
-  data: function () {
+  data() {
 			return {
 			search:"",
 			inputData: String
 		}
 	},
 	methods : {
-		searchForm: function(e){
+		searchForm(e){
 			e.preventDefault();
 			let src = this.search;
 			this.$store.commit('searchPoke', src);

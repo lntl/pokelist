@@ -81,7 +81,7 @@ html, body {
 	max-width: 80%;
 	margin-top: 10px;
 	width: 80%;
-	padding-top: 215px;
+	padding-top: 225px;
 }
 .title {
   display: block;
@@ -129,7 +129,7 @@ ul li{
 	padding: 5px 15px;
 }
 .search{
-	background: url(/_nuxt/assets/PkBall.svg);
+	background: url(../assets/PkBall.svg);
 	width: 25px;
 	height: 25px;
 	border: none;
@@ -250,6 +250,11 @@ input {
 }
 .order-name{
 	position: relative;
+	width: 100%;
+}
+.sub-title {
+	font-size: 0.7rem;
+	display: block;
 }
 .bar {
 	background: rgba(000,000,000,0.4);

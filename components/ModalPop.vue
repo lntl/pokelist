@@ -18,15 +18,15 @@ export default {
   data(){
     return{
       id:undefined,
-      datas:{}
+      datas:{},
+      uploaded_data:false
     }
   },
   props: {
     toggle: Function
   },
   methods: {
-    away() {
-      this.$store.dispatch('getOnce', "");
+    away(){
       this.toggle();
     }
   }
