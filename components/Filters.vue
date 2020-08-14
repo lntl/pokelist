@@ -3,7 +3,7 @@
       <div class="filter-blocs">
         <div class="order-name">
           <div class="title">Ordre alphabétique</div>
-          <label @click="isActive = 1" :class="{active:isActive == 1}" class="container-field">
+          <label @click="isActive = 1" :class="{active:isActive == 1}" class="container-field alpha">
             ASC
             <input type="radio" name="order_alpha" v-model="alpha" @change="handleFilter" :value="0"/>
             <span class="checkmark"></span>
@@ -37,10 +37,10 @@ export default {
   name: "Filters",
   data() {
     return {
-      filter_type: [{
+      filter_type: {
         order_alpha:"",
         order_num:"",
-      }],
+      },
       num:undefined,
       alpha:undefined,
       isActive: undefined,
@@ -60,6 +60,7 @@ export default {
           this.$data.filter_type.order_num  = this.num;
         break;
       }
+     
       this.$store.commit('setFilters', this.$data.filter_type);
 		}
 	},

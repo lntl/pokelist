@@ -5,13 +5,26 @@ Vue.use(Vuex);
 export const state = () => ({
     pokemons_tab:[],
     pokemon:[],
+    team:[],
     last_filter:"",
-    filters:[],
 });
 
 export const mutations = {
     setPoke(state, data){
       state.pokemons_tab = data;
+    },
+    setTeam(state, data){
+      let team = [...state.team];
+      if(data.action!="trash"){
+        team.push(data);
+      } else {
+        team.forEach((elm, indx) => {
+          if(elm.id===data.id){
+            team.splice(indx,1);
+          }
+        })
+      }
+      state.team = team;
     },
     searchPoke(state, data){
       if(data!=""){
@@ -103,5 +116,8 @@ export const actions = {
         resolve('ok');
       }
     })
+  },
+  getTeam({commit}, data){
+    commit('setTeam', data);
   }
 }

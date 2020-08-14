@@ -7,6 +7,7 @@
           v-bind:key="poke.name"
           v-on:click="selectCads(poke.id)" 
       >
+      <span class="ids">{{poke.id}}</span>
         <div class="thumb">
           <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.id}.png`" />
         </div>

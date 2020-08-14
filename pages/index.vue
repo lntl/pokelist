@@ -1,6 +1,7 @@
 <template>
   <div class="container" :class="{onscroll:scrolled == true}">
       <div id="nav">
+      
         <div id="logo">
           <img src="../assets/logo.svg"/>
         </div>
@@ -8,9 +9,11 @@
         <SearchForm />
         <Filters />
       </div>
-      
       <div class="content">
         <Pokecards @clicked="toggleModal" />
+      </div>
+      <div v-if="loader" class="loader-wrap">
+        <img src="../assets/PkBall.svg" class="loader"/>
       </div>
       <transition name="modal">
         <ModalPop v-if="modalDisplay" :toggle='toggleModal'/>
@@ -26,6 +29,7 @@ export default {
     return{
       modalDisplay:false,
       scrolled:false,
+      loader:false,
     }
   },
   created() {
@@ -42,12 +46,15 @@ export default {
   methods : {
     toggleModal(id){
       if(id){
+        this.loader=true;
         this.$store.dispatch('getOnce', id).then(()=>{
           this.modalDisplay =! this.modalDisplay;
+          this.loader=false;
         });
       } else {
         this.modalDisplay = false
       }
+      
     },
     handleScroll(event) {
       if(event.target.scrollingElement.scrollTop>40){
