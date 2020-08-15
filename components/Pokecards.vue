@@ -5,9 +5,10 @@
       <li class="card list-complete-item" 
           v-for="poke in pokemons" 
           v-bind:key="poke.name"
-          v-on:click="selectCads(poke.id)" 
+          v-on:click="selectCads(poke)" 
       >
       <span class="ids">{{poke.id}}</span>
+      <div v-if="poke.inteam" class="catch">Catched</div>
         <div class="thumb">
           <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.id}.png`" />
         </div>
@@ -34,8 +35,8 @@ export default {
     })
   },
   methods : {
-    selectCads(id){
-      this.$emit('clicked', id);
+    selectCads(poke){
+      this.$emit('clicked', poke);
     }
 	}
 }

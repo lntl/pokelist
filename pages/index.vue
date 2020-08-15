@@ -16,7 +16,7 @@
         <img src="../assets/PkBall.svg" class="loader"/>
       </div>
       <transition name="modal">
-        <ModalPop v-if="modalDisplay" :toggle='toggleModal'/>
+        <ModalPop v-if="modalDisplay" :toggle='toggleModal' @handleToggledTeam='toggledTeam' />
       </transition>
   </div>
 </template>
@@ -38,21 +38,26 @@ export default {
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll);
   },
-  computed : {
-     ...mapState({
-      pokemons: state => state.pokemons_tab,
-    })
-  },
   methods : {
-    toggleModal(id){
-      if(id){
+    toggleModal(data){
+      if(data){
         this.loader=true;
-        this.$store.dispatch('getOnce', id).then(()=>{
+        this.$store.dispatch('getOnce', data).then(()=>{
           this.modalDisplay =! this.modalDisplay;
           this.loader=false;
         });
       } else {
         this.modalDisplay = false
+      }
+    },
+    async toggledTeam(data){
+      var test = await this.$store.dispatch('getListBindByTeam', data);
+      if(data.action!='trash'){
+        setTimeout(()=>{
+          this.toggleModal();
+        }, 1300)
+      } else {
+        this.toggleModal();
       }
       
     },
@@ -64,7 +69,7 @@ export default {
       }
     }
 	},
-	mounted(){
+	async mounted(){
     this.$store.dispatch('getPoke');
   }
 }

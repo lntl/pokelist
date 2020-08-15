@@ -17,12 +17,12 @@
         <div class="bar"></div>
         <div class="order-name">
           <div class="title">Ordre numérique</div>
-          <label @click="isActiveNum = 1" :class="{active:isActiveNum == 1}" class="container-field">
+          <label @click="isActive = 3" :class="{active:isActive == 3}" class="container-field">
             ASC
             <input type="radio" name="order_num" v-model="num" @change="handleFilter" :value="0"/>
             <span class="checkmark"></span>
           </label>
-          <label @click="isActiveNum = 2" :class="{active:isActiveNum == 2}" class="container-field">
+          <label @click="isActive = 4" :class="{active:isActive == 4}" class="container-field">
             DESQ
             <input type="radio" name="order_num" v-model="num" @change="handleFilter" :value="1"/>
             <span class="checkmark"></span>

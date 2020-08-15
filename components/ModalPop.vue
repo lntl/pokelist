@@ -4,7 +4,7 @@
       <div class="modal-wrapper">
         <div class="modal-container" v-on-clickaway="away">
           <div class="btn-close"  @click="away">X</div>
-          <Pokemon />
+          <Pokemon @handleToggledTeam='toggledTeam'/>
         </div>
       </div>
     </div>
@@ -15,20 +15,16 @@ import { mixin as clickaway } from "vue-clickaway";
 export default {
   mixins: [clickaway],
   name: 'ModalPop',
-  data(){
-    return{
-      id:undefined,
-      datas:{},
-      uploaded_data:false
-    }
-  },
   props: {
     toggle: Function
   },
   methods: {
     away(){
       this.toggle();
-    }
+    },
+    toggledTeam(data){
+      this.$emit('handleToggledTeam', data);
+    },
   }
 }
 </script>

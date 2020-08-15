@@ -13,6 +13,20 @@ export const mutations = {
     setPoke(state, data){
       state.pokemons_tab = data;
     },
+    setListByTeam(state, id){
+      let pokemons_tab = [...state.pokemons_tab];
+      var newarr = pokemons_tab.map((elm)=>{
+        if(elm.id == id){
+          if(elm.inteam!=true) {
+            elm.inteam=true
+          }else {
+            elm.inteam=false
+          }
+        }
+        return elm
+      })
+      state.pokemons_tab = newarr;
+    },
     setTeam(state, data){
       let team = [...state.team];
       if(data.action!="trash"){
@@ -21,6 +35,9 @@ export const mutations = {
         team.forEach((elm, indx) => {
           if(elm.id===data.id){
             team.splice(indx,1);
+          }
+          if(team.length==1){
+            team=[];
           }
         })
       }
@@ -72,8 +89,6 @@ export const mutations = {
         break;
       }
       pokemons_tab.sort(sortByKey(target, order_by));
-      
-      console.log("Last Target = "+state.last_filter+'  ||  '+"Current target = "+data.target);
 
       this.commit('setPoke', pokemons_tab);
 
@@ -81,7 +96,7 @@ export const mutations = {
     }
 }
 export const actions = {
-  getPoke({commit}){
+  async getPoke({commit}){
     if(!localStorage.pokemons) {
       axios.get('https://pokeapi.co/api/v2/pokemon?limit=150&offset=0').then(response => {
         response.data.results.map((elm,i)=>{
@@ -99,11 +114,15 @@ export const actions = {
       commit('setPoke', JSON.parse(localStorage.pokemons));
     };
   },
-  getOnce({commit},id){
-    let url = "https://pokeapi.co/api/v2/pokemon/"+id;
+  getListBindByTeam({commit}, data){
+    commit('setListByTeam', data.id);
+  },
+  getOnce({commit},data){
+    let url = "https://pokeapi.co/api/v2/pokemon/"+data.id;
     return new Promise((resolve, reject) => {
-      if(id){
+      if(data.id){
         axios.get(url).then(response => {
+            response.data.inteam=data.inteam;
             response.data.name = response.data.name.charAt(0).toUpperCase() + response.data.name.slice(1);
             commit('setOnce', response.data);
             resolve(response);

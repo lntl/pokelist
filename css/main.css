@@ -369,9 +369,9 @@ input {
 	cursor: pointer;
 	transition: 0.2s;
 }
-.catch:hover img{
+/* .catch:hover img{
 	transform: rotate(360deg);
-}
+} */
 .loader {
 	position: fixed;
 	left: 0;
@@ -382,7 +382,54 @@ input {
 	animation: rotating 1s ease-in-out infinite;
 	-webkit-animation: rotating 1s ease-in-out infinite;
 }
+.card .catch {
+	font-size: 0.7rem;
+	position: absolute;
+	z-index: 5;
+	background: #a7e0b2;
+	padding: 3px;
+}
+.catched {
+	position: absolute;
+	animation: catching 1s ease-in-out;
+	-webkit-animation: catching 1s ease-in-out;
+	top: 10%;
+	right: 0;
+	margin: 0 auto;
+	left: 0;
+	width: 100px;
+	background: #a7e0b2;
+	padding: 5px;
+	border-radius: 3px;
+	opacity: 0.8;
 
+}
+.remove {
+	padding: 5px;
+	width: 70px;
+	font-size: 0.8rem;
+	border-radius: 3px;
+	position: absolute;
+	background: #d9534f;
+	bottom: 7px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	color: #fff;
+	border: 1px solid #ccc;
+	cursor: pointer;
+	transition: 0.2s;
+}
+.btn-catch {
+	display: block;
+	font-size: 0.7rem;
+	padding: 10px 0px;
+}
+.remove:hover{
+	color:#d9534f;
+	background: #fff;
+	border-color: #d9534f;
+}
 @keyframes rotating {
 	0% { 
     transform: rotate(0); 
@@ -390,6 +437,24 @@ input {
   100% { 
     transform: rotate(360deg);
   }
+}
+
+@keyframes catching {
+	0% { 
+    transform: scale(1.5); 
+  }
+  50% { 
+    transform:scale(0.6); 
+	}
+	60%{
+		transform: rotate(45deg);
+	}
+	70%{
+		transform: rotate(-45deg);
+	}
+	100%{
+		transform: rotate(0deg);
+	}
 }
 
 .ids {

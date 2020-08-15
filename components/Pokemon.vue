@@ -4,8 +4,16 @@
     <div class="thumb">
       <img v-if="pokemon.id!='undefined'" :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`" />
     </div>
-    <div class="catch" @click="handleClick" v-if="!isInTeam" :class="{isIn:isInTeam == true}"><img src="../assets/PkBall.svg" /></div>
-    <div v-else  class="catch" @click="handleClick">Delete</div>
+    <div class="catch" @click="handleClick" v-if="!isClicked">
+      <img src="../assets/PkBall.svg" />
+      <span class="btn-catch">Click sur la pokeball</span>
+    </div>
+    <div v-if="isClicked"  class="catch">
+      <div class="catched">Catched !!</div>
+      <div class="catch remove" @click="handleClick" v-if="isClicked" >
+        remove
+      </div>
+    </div>
     <div id="pin">
       <div class="name">{{ pokemon.name }}</div>
       <div class="pv"  
@@ -39,34 +47,32 @@ export default {
   name: "Pokemon",
   data(){
     return{
-      isInTeam:false,
+      isClicked : false
     }
+  },
+  mounted: function () {
+    this.isClicked = this.pokemon.inteam
   },
   computed: {
     ...mapState({
       pokemon: state => state.pokemon,
-      team: state => state.team,
     })
   },
   methods: {
-    handleClick(){
-      var erz = false;
-      for(var val in this.team){
-        if(this.pokemon.id===this.team[val].id){
-          erz=true;
-        }
-      }
-      if(!erz){
+    async handleClick(){
+      this.isClicked = this.pokemon.inteam
+      
+      if(!this.pokemon.inteam){
+        this.isClicked=true;
         this.pokemon.action = "added";
         this.$store.dispatch('getTeam', this.pokemon)
-        this.isInTeam=false;
       } else {
+        this.isClicked=true;
         this.pokemon.action = "trash";
         this.$store.dispatch('getTeam', this.pokemon)
-        this.isInTeam=true;
       }
 
-      console.log(this.team)
+      this.$emit('handleToggledTeam', this.pokemon);
     }
   }
   
