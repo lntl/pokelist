@@ -6,7 +6,7 @@
     </div>
     <div class="catch" @click="handleClick" v-if="!isClicked">
       <img src="../assets/PkBall.svg" />
-      <span class="btn-catch">Click sur la pokeball</span>
+      <span class="btn-catch">Clic sur la pokeball</span>
     </div>
     <div v-if="isClicked"  class="catch">
       <div class="catched">Catched !!</div>

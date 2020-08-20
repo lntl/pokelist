@@ -15,6 +15,11 @@
         <p class="name">
           {{ poke.name.charAt(0).toUpperCase() + poke.name.slice(1) }}
         </p>
+         <div class="types">
+          <div v-for="type in poke.types" v-bind:key="type.name" >
+            <span v-for="tpe in type"  v-bind:key="tpe.name">{{tpe.name}}</span>
+          </div>
+        </div>
       </li>
     </transition-group>
   </div>

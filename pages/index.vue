@@ -9,6 +9,7 @@
         <SearchForm />
         <Filters />
       </div>
+      <Team />
       <div class="content">
         <Pokecards @clicked="toggleModal" />
       </div>
@@ -51,7 +52,7 @@ export default {
       }
     },
     async toggledTeam(data){
-      var test = await this.$store.dispatch('getListBindByTeam', data);
+      await this.$store.dispatch('getListBindByTeam', data);
       if(data.action!='trash'){
         setTimeout(()=>{
           this.toggleModal();
@@ -69,7 +70,7 @@ export default {
       }
     }
 	},
-	async mounted(){
+	mounted(){
     this.$store.dispatch('getPoke');
   }
 }
